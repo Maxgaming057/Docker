@@ -1,8 +1,9 @@
-# Use the base image
-FROM modenaf360/gotty:latest
+FROM ubuntu:22.04
 
-# Expose the desired port
-EXPOSE 8080
+ENV DEBIAN_FRONTEND=noninteractive
 
-# Start Gotty with the specified command
-CMD ["gotty", "-r", "-w", "--port", "8080", "/bin/bash"]
+RUN apt-get update && \
+    apt-get install -y tmate tzdata expect && \
+    ln -fs /usr/share/zoneinfo/Asia/Kathmandu /etc/localtime && \
+    dpkg-reconfigure -f noninteractive tzdata && \
+    apt-get clea
